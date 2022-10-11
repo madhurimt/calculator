@@ -1,6 +1,9 @@
 const buttons = document.querySelectorAll("button");
 let user_input = "";
 let calc_done = false;
+const operators = [...document.querySelectorAll(".operator")].map(
+  (element) => element.textContent
+);
 
 buttons.forEach(function (btn) {
   btn.addEventListener("click", (e) => {
@@ -19,8 +22,16 @@ buttons.forEach(function (btn) {
       user_input = "";
       document.querySelector("input").value = user_input;
     } else {
-      user_input += button_clicked;
-      console.log(user_input);
+      if (
+        operators.includes(button_clicked) &&
+        operators.includes(user_input.charAt(user_input.length - 1))
+      ) {
+        console.log("i m in here");
+        user_input =
+          user_input.substring(0, user_input.length - 1) + button_clicked;
+      } else {
+        user_input += button_clicked;
+      }
       document.querySelector("input").value = user_input;
     }
   });
